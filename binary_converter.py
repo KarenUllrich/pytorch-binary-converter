@@ -106,8 +106,9 @@ def float2bit(f, num_e_bits=8, num_m_bits=23, bias=127., dtype=torch.float32):
   m1 = integer2bit(f - f % 1, num_bits=num_e_bits)
   m2 = remainder2bit(f % 1, num_bits=bias)
   m = torch.cat([m1, m2], dim=-1)
-
-  idx = torch.arange(num_m_bits).unsqueeze(0).float() \
+  
+  dtype = f.type()
+  idx = torch.arange(num_m_bits).unsqueeze(0).type(dtype) \
         + (8. - e_scientific).unsqueeze(-1)
   idx = idx.long()
   m = torch.gather(m, dim=-1, index=idx)
@@ -126,7 +127,8 @@ def remainder2bit(remainder, num_bits=127):
           bits.
 
   """
-  exponent_bits = torch.arange(num_bits).float()
+  dtype = remainder.type()
+  exponent_bits = torch.arange(num_bits).type(dtype)
   exponent_bits = exponent_bits.repeat(remainder.shape + (1,))
   out = (remainder.unsqueeze(-1) * 2 ** exponent_bits) % 1
   return torch.floor(2 * out)

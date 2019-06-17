@@ -92,7 +92,7 @@ def float2bit(f, num_e_bits=8, num_m_bits=23, bias=127., dtype=torch.float32):
   """
   ## SIGN BIT
   s = torch.sign(f)
-  f *= s
+  f = f * s
   # turn sign into sign-bit
   s = (s * (-1) + 1.) * 0.5
   s = s.unsqueeze(-1)

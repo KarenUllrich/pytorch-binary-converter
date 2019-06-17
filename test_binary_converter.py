@@ -25,8 +25,10 @@ ISBN 978-0-7381-5753-5. IEEE Std 754-2008
 
 Author, Karen Ullrich June 2019
 """
-import torch
 import numpy as np
+import torch
+from torch import nn
+
 
 from binary_converter import float2bit, bit2float
 
@@ -35,6 +37,8 @@ print("Testing the float to bit conversion on IEEE-754 single precision "
       "floating point format.")
 
 f = torch.Tensor([[123.123, 0.0003445]])
+
+f = nn.Parameter(f)
 target = torch.Tensor([[[0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0,
                          0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0],
                         [0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1,
@@ -42,6 +46,11 @@ target = torch.Tensor([[[0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0,
                          0]]]).type(torch.float32)
 
 pred = float2bit(f, num_e_bits=8, num_m_bits=23, bias=127.)
+
+try:
+  torch.sum(pred).backward()
+except:
+  "Function, float2bit, is not differntiable."
 
 assert (f.shape == pred.shape[:-1]), "float2bit does not produce correct shape"
 
@@ -69,3 +78,4 @@ assert torch.all(pred == target), \
   "computed solution {}".format(target, pred)
 
 print("Test successful.")
+

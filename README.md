@@ -20,11 +20,12 @@ Other common formats are
 To turn a float tensor into a binary one
 
     from binary_converter import float2bit
-    binary_tensor = float2bit(float_tensor)
+    binary_tensor = float2bit(float_tensor, num_e_bits=8, num_m_bits=23, bias=127.)
 
+To turn a binary tensor into a float one
 
     from binary_converter import bit2float
-    float_tensor = bit2float(binary_tensor)
+    float_tensor = bit2float(binary_tensor, num_e_bits=8, num_m_bits=23, bias=127.)
 
 
 ### Requirements

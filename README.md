@@ -7,11 +7,11 @@ based on 32 bit / single precision floats: 8 exponent bits and 23 mantissa bits.
 Other common formats are
 
 
-num total bits     precision    exponent bits   mantissa bits       bias
----------------------------------------------------------------------------
-    64 bits         double              11             52           1023
-    32 bits         single               8             23            127
-    16 bits         half                 5             10             15
+|num total bits    | precision   | exponent bits |  mantissa bits   |    bias |
+|------------|-------------------|-------------------|-------------------|-------------------|  
+|64 bits     |    double         |     11         |    52       |    1023|
+|    32 bits  |       single      |         8      |       23    |        127|
+|    16 bits  |       half         |        5       |      10     |        15|
 
 
 

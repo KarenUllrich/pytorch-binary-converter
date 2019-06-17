@@ -46,7 +46,7 @@ def bit2float(b, num_e_bits=8, num_m_bits=23, bias=127.):
   """
   expected_last_dim = num_m_bits + num_e_bits + 1
   assert b.shape[-1] == expected_last_dim, "Binary tensors last dimension " \
-                                           "should be {}, not.".format(
+                                           "should be {}, not {}.".format(
     expected_last_dim, b.shape[-1])
 
   # check if we got the right type
